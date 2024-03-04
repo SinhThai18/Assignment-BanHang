@@ -10,29 +10,31 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
             <ul class="navbar-nav m-auto">
-                <c:if test="${sessionScope.acc.isAdmin == 1}">
+                <c:if test="${sessionScope.acc.isAdmin eq 1}">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Manager Account</a>
                     </li>
                 </c:if>
-                <c:if test="${sessionScope.acc.isSell == 1}">
+                <c:if test="${sessionScope.acc.isSell eq 1}">
                     <li class="nav-item">
                         <a class="nav-link" href="manager">Manager Product</a>
                     </li>
                 </c:if>
-                <c:if test="${sessionScope.acc != null}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Hello ${sessionScope.acc.user}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout">Logout</a>
-                    </li> 
-                </c:if>
-                <c:if test="${sessionScope.acc == null}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.jsp">Login</a>
-                    </li>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.acc}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hello ${sessionScope.acc.user}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Login.jsp">Login</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
 
             <form action="search" method="post" class="form-inline my-2 my-lg-0">
