@@ -6,6 +6,7 @@
 package Control;
 
 import Dao.Dao;
+import Model.Product;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,13 +16,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author thaim
  */
-@WebServlet(name="LoginControl", urlPatterns={"/login"})
-public class LoginControl extends HttpServlet {
+@WebServlet(name="ManagerControl", urlPatterns={"/manager"})
+public class ManagerControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,20 +35,14 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("user");
-        String psssword = request.getParameter("pass");
+        HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("acc");
+        int id = a.getId();
         Dao dao = new Dao();
-        Account a = dao.login(username, psssword);
-        if(a == null){
-            request.setAttribute("mess", "Wrong user or password");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }else{
-            HttpSession session = request.getSession();
-            session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(600);
-            response.sendRedirect("home");
-        }
+        List<Product> list = dao.getProductBySellID(id);
         
+        request.setAttribute("listP", list);
+        request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

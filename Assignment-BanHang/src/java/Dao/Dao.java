@@ -215,4 +215,38 @@ public class Dao {
         } catch (Exception e) {
         }
     }
+    
+     public List<Product> getProductBySellID(int id) {
+        List<Product> list = new ArrayList<>();
+        String query = "SELECT*FROM Product\n"
+                + "where sell_ID=?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDouble(4),
+                        rs.getString(5)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+     
+    public void deleteProduct(String pid){
+        String query = "DELETE FROM Product\n"+
+                "WHERE id = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, pid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }
