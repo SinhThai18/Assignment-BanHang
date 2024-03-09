@@ -6,8 +6,7 @@
 package Control;
 
 import Dao.Dao;
-import Model.Category;
-import Model.Product;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,14 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author thaim
  */
-@WebServlet(name="HomeControl", urlPatterns={"/home"})
-public class HomeControl extends HttpServlet {
+@WebServlet(name="LoginControl", urlPatterns={"/login"})
+public class LoginControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,17 +33,18 @@ public class HomeControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        // get data from dao
-         Dao dao = new Dao();
-         List<Product> list = dao.getAllProduct();
-         List<Category> listC = dao.getAllCategory();
-         Product last = dao.getLast();
-        //set data to jsp
-        request.setAttribute("listP", list);
-        request.setAttribute("listC", listC);
-        request.setAttribute("p", last);
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
-      
+        String username = request.getParameter("user");
+        String psssword = request.getParameter("pass");
+        Dao dao = new Dao();
+        Account a = dao.login(username, psssword);
+        if(a == null){
+            request.setAttribute("mess", "Wrong user or password");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }else{
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", a);
+            response.sendRedirect("home");
+        }
         
     } 
 
@@ -83,12 +83,5 @@ public class HomeControl extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-//public static void main(String[] args) {
-//        Dao dao = new Dao();
-//        List<Product> list = dao.getAllProduct();
-//        for (Product o:list){
-//            System.out.println(o);
-//        }
-//    }
 
 }

@@ -36,7 +36,7 @@
                                 <div class="card">
                                     <img class="card-img-top" src="${o.image}" alt="Card image cap" width="100%" height="auto">
                                     <div class="card-body">
-                                        <h4 class="card-title show_txt"><a href="#" title="View Product">${o.name}</a></h4>
+                                        <h4 class="card-title show_txt"><a href="detail?pid=${o.id}" title="View Product">${o.name}</a></h4>
                                         <p class="card-text show_txt">${o.description}</p>
                                         <div class="row">
                                             <div class="col">

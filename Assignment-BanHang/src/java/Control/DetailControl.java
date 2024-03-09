@@ -21,8 +21,8 @@ import java.util.List;
  *
  * @author thaim
  */
-@WebServlet(name="HomeControl", urlPatterns={"/home"})
-public class HomeControl extends HttpServlet {
+@WebServlet(name="DetailControl", urlPatterns={"/detail"})
+public class DetailControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,17 +34,18 @@ public class HomeControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        // get data from dao
-         Dao dao = new Dao();
-         List<Product> list = dao.getAllProduct();
+        String id = request.getParameter("pid");
+        Dao dao = new Dao();
+        Product p = dao.getProductByID(id);
          List<Category> listC = dao.getAllCategory();
          Product last = dao.getLast();
-        //set data to jsp
-        request.setAttribute("listP", list);
-        request.setAttribute("listC", listC);
+        
+        
+        request.setAttribute("detail", p);
+         request.setAttribute("listC", listC);
         request.setAttribute("p", last);
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
-      
+        request.getRequestDispatcher("Detail.jsp").forward(request, response);
+        
         
     } 
 
@@ -83,12 +84,5 @@ public class HomeControl extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-//public static void main(String[] args) {
-//        Dao dao = new Dao();
-//        List<Product> list = dao.getAllProduct();
-//        for (Product o:list){
-//            System.out.println(o);
-//        }
-//    }
 
 }
