@@ -14,13 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author thaim
  */
-@WebServlet(name="SignUpControl", urlPatterns={"/signup"})
-public class SignUpControl extends HttpServlet {
+@WebServlet(name="AddControl", urlPatterns={"/add"})
+public class AddControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,23 +33,19 @@ public class SignUpControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("repass");
-        if(!pass.equals(re_pass))
-        {
-            response.sendRedirect("Login.jsp");
-        }else{
-            Dao dao =new Dao();
-            Account a =dao.checkAccountExit(user);
-            if(a == null){
-                //đc phep
-                dao.signup(user, pass);
-                response.sendRedirect("home");
-            }else{
-                response.sendRedirect("Login.jsp");
-            }
-        }
+        String name = request.getParameter("name");
+        String image = request.getParameter("image");
+        String price = request.getParameter("price");
+        String description = request.getParameter("description");
+        String information = request.getParameter("information");
+        String Category = request.getParameter("category");
+         HttpSession session = request.getSession();
+         Account a = (Account) session.getAttribute("acc");
+        int sid = a.getId();
+        
+        Dao dao = new Dao();
+        dao.insertProduct(name, image, price, description, information, Category, sid);
+        response.sendRedirect("manager");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

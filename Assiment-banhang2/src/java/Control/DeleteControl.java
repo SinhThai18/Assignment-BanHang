@@ -6,7 +6,6 @@
 package Control;
 
 import Dao.Dao;
-import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author thaim
  */
-@WebServlet(name="SignUpControl", urlPatterns={"/signup"})
-public class SignUpControl extends HttpServlet {
+@WebServlet(name="DeleteControl", urlPatterns={"/delete"})
+public class DeleteControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,23 +31,10 @@ public class SignUpControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("repass");
-        if(!pass.equals(re_pass))
-        {
-            response.sendRedirect("Login.jsp");
-        }else{
-            Dao dao =new Dao();
-            Account a =dao.checkAccountExit(user);
-            if(a == null){
-                //đc phep
-                dao.signup(user, pass);
-                response.sendRedirect("home");
-            }else{
-                response.sendRedirect("Login.jsp");
-            }
-        }
+        String pid = request.getParameter("pid");
+        Dao dao = new Dao();
+        dao.deleteProduct(pid);
+        response.sendRedirect("manager");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

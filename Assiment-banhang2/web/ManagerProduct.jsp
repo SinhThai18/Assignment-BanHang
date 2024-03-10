@@ -23,7 +23,7 @@
         <style>
             img{
                 width: 200px;
-                height: auto;
+                height: 120px;
             }
         </style>
     <body>
@@ -136,15 +136,17 @@
 
                         </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
+                            <form action="add" method="post"> <!-- Thêm thẻ form ở đây -->
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Add">
+                            </form>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        
-        
-    <script src="js/manager.js" type="text/javascript"></script>
-</body>
+
+
+        <script src="js/manager.js" type="text/javascript"></script>
+    </body>
 </html>

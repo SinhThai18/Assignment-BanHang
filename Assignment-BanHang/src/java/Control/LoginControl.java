@@ -6,7 +6,7 @@
 package Control;
 
 import Dao.Dao;
-import entity.Account;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -34,16 +34,16 @@ public class LoginControl extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String username = request.getParameter("user");
-        String psssword = request.getParameter("pass");
+        String password = request.getParameter("pass");
         Dao dao = new Dao();
-        Account a = dao.login(username, psssword);
+        Account a = dao.login(username, password);
         if(a == null){
             request.setAttribute("mess", "Wrong user or password");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(600);
+            session.setMaxInactiveInterval(100);
             response.sendRedirect("home");
         }
         

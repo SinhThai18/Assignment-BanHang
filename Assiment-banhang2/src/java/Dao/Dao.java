@@ -249,27 +249,4 @@ public class Dao {
         } catch (Exception e) {
         }
     }
-    
-    public void insertProduct(String name,String image,
-                              String price,String description,
-                              String information,String Category,
-                              int sid){
-        String query = "INSERT INTO Product ([name], [image], price, [description], cateID, sell_id, information)\n" +
-                       "VALUES(?,?,?,?,?,?,?)";
-          try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, image);
-            ps.setString(3, price);
-            ps.setString(4, description);
-            ps.setString(5, Category);
-            ps.setInt(6, sid);
-            ps.setString(7, information);
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-    }
-    
-   
 }

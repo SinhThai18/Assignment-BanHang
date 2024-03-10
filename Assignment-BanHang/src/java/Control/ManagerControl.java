@@ -6,8 +6,9 @@
 package Control;
 
 import Dao.Dao;
+import Model.Category;
 import Model.Product;
-import entity.Account;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -34,16 +35,25 @@ public class ManagerControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Account a = (Account) session.getAttribute("acc");
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Account a = (Account) session.getAttribute("acc");
+    if (a != null) {
         int id = a.getId();
         Dao dao = new Dao();
         List<Product> list = dao.getProductBySellID(id);
-        
+        List<Category> listC = dao.getAllCategory();
+
+        request.setAttribute("listC", listC);
         request.setAttribute("listP", list);
         request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
-    } 
+    } else {
+        // Handle the case where "acc" attribute is null
+        // For example, you could redirect to the login page or display an error message
+        response.sendRedirect("login.jsp");
+    }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

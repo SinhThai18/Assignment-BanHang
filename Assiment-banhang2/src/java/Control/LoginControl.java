@@ -14,13 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author thaim
  */
-@WebServlet(name="SignUpControl", urlPatterns={"/signup"})
-public class SignUpControl extends HttpServlet {
+@WebServlet(name="LoginControl", urlPatterns={"/login"})
+public class LoginControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,23 +33,20 @@ public class SignUpControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("repass");
-        if(!pass.equals(re_pass))
-        {
-            response.sendRedirect("Login.jsp");
+        String username = request.getParameter("user");
+        String psssword = request.getParameter("pass");
+        Dao dao = new Dao();
+        Account a = dao.login(username, psssword);
+        if(a == null){
+            request.setAttribute("mess", "Wrong user or password");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }else{
-            Dao dao =new Dao();
-            Account a =dao.checkAccountExit(user);
-            if(a == null){
-                //đc phep
-                dao.signup(user, pass);
-                response.sendRedirect("home");
-            }else{
-                response.sendRedirect("Login.jsp");
-            }
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", a);
+            session.setMaxInactiveInterval(600);
+            response.sendRedirect("home");
         }
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
