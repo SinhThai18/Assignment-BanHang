@@ -92,7 +92,7 @@
                     </ul>
                 </div>
             </div>
-            <a href="#"><button type="button" class="btn btn-primary">Back to home</button>
+           
 
         </div>
         <!-- Edit Modal HTML -->
@@ -143,7 +143,7 @@
                 </div>
             </div>
         </div>
-        
+        <div> <a href="home"><button type="button" class="btn btn-primary">Back to home</button></div> 
         
     <script src="js/manager.js" type="text/javascript"></script>
 </body>
