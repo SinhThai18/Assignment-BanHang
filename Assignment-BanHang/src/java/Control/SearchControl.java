@@ -6,6 +6,7 @@
 package Control;
 
 import Dao.Dao;
+import Model.Category;
 import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,8 +37,11 @@ public class SearchControl extends HttpServlet {
         String txtSearch = request.getParameter("txt");
         Dao dao = new Dao();
         List<Product> list = dao.searchByName(txtSearch);
+         List<Category> listC = dao.getAllCategory();
+         Product last = dao.getLast();
         
-        
+        request.setAttribute("listC", listC);
+        request.setAttribute("p", last);
         request.setAttribute("listP", list);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     } 

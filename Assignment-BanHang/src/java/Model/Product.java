@@ -15,6 +15,7 @@ public class Product {
     private double price;
     private String description;
     private String information;
+    private int quantity;
 
     public Product() {
     }
@@ -35,6 +36,29 @@ public class Product {
         this.price = price;
         this.description = description;
         this.information = information;
+    }
+
+    public Product(int id, String name, String image, double price, String description, String information, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.description = description;
+        this.information = information;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    
+    public Product(String productId, String productName, double productPrice) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     public int getId() {

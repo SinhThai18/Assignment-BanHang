@@ -42,7 +42,7 @@ public class DetailControl extends HttpServlet {
         
         
         request.setAttribute("detail", p);
-         request.setAttribute("listC", listC);
+        request.setAttribute("listC", listC);
         request.setAttribute("p", last);
         request.getRequestDispatcher("Detail.jsp").forward(request, response);
         

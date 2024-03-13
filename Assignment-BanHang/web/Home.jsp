@@ -18,9 +18,7 @@
                 <div class="col">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="Home.jsp">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Category</a></li>
-                            <li class="breadcrumb-item active" aria-current="#">Sub-category</li>
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -42,8 +40,11 @@
                                             <div class="col">
                                                 <p class="btn btn-danger btn-block">${o.price} VND</p>
                                             </div>
-                                            <div class="col">
-                                                <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                             <div class="col">
+                                                 <input class="btn btn-success btn-block" onclick="buy('id')" type="button" value="Add to cart"/>
+                                            </div>
+                                            <div>
+                                                Enter number to buy:<input type="number" name="num" value="1"/>
                                             </div>
                                         </div>
                                     </div>
@@ -57,3 +58,12 @@
         <jsp:include page="Footer.jsp"></jsp:include>
     </body>
 </html>
+<script type="text/javascript">
+     function buy(id){
+         var m = doucument.f.num.value;
+         document.f.action = "buy?id="+id+"num="+m;
+         document.f.submit();
+     }   
+    
+</script>
+    
