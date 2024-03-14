@@ -9,6 +9,42 @@ SELECT*FROM Product
 SELECT*FROM Category
 SELECT*FROM Account
 
+
+/*-----------------------------Account------------------------------------------------*/
+CREATE TABLE Account (
+    [uID] INT IDENTITY(1,1) PRIMARY KEY,
+    [user] VARCHAR(50) UNIQUE NOT NULL,
+    pass VARCHAR(50) NOT NULL,
+    isSell BIT ,
+    isAdmin BIT
+);
+/*-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------Category------------------------------------------------*/
+CREATE TABLE Category(
+     cid INT  PRIMARY KEY,
+	 cname NVARCHAR,
+);
+ALTER TABLE Category
+ALTER COLUMN cname NVARCHAR(50);
+
+/*-----------------------------------------------------------------------------*/
+
+
+
+/*-----------------------------PRODUCTT------------------------------------------------*/
+CREATE TABLE Product (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    [name] VARCHAR(255) NOT NULL,
+    [image] VARCHAR(255),
+    price DECIMAL(12,0) NOT NULL,
+    [description] TEXT,
+    cateID INT  FOREIGN KEY (cateID) REFERENCES Category(cid),
+    sell_id INT FOREIGN KEY (sell_id) REFERENCES Account(uID),
+    information NVARCHAR(MAX)
+);
+
 UPDATE Product
 SET name='ABA',
 image='AB',
@@ -22,31 +58,31 @@ WHERE id=1
 SELECT*FROM Product
 WHERE sell_id = 2
 
-CREATE TABLE Account (
-    [uID] INT IDENTITY(1,1) PRIMARY KEY,
-    [user] VARCHAR(50) UNIQUE NOT NULL,
-    pass VARCHAR(50) NOT NULL,
-    isSell BIT ,
-    isAdmin BIT
+ALTER TABLE Product
+ADD quantity INT;
+
+/*-------------------------------------------------------------------------*/
+
+
+/*-----------------------------ORDER------------------------------------------------*/
+CREATE TABLE [Order] (
+    oid INT IDENTITY(1,1) PRIMARY KEY,
+    [date] DATE NOT NULL,
+	[uID] INT NOT NULL FOREIGN KEY ([uID]) REFERENCES Account(uID),
+	totalmoney DECIMAL(18,0) NOT NULL
 );
 
-CREATE TABLE Category(
-     cid INT  PRIMARY KEY,
-	 cname NVARCHAR,
-);
-ALTER TABLE Category
-ALTER COLUMN cname NVARCHAR(50);
+/*-----------------------------------------------------------------------------*/
 
-CREATE TABLE Product (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    [name] VARCHAR(255) NOT NULL,
-    [image] VARCHAR(255),
-    price DECIMAL(12,0) NOT NULL,
-    [description] TEXT,
-    cateID INT  FOREIGN KEY (cateID) REFERENCES Category(cid),
-    sell_id INT FOREIGN KEY (sell_id) REFERENCES Account(uID),
-    information NVARCHAR(MAX)
+
+/*-----------------------------ORDERLINE------------------------------------------------*/
+CREATE TABLE [OrderLine] (
+    oid INT FOREIGN KEY (oid) REFERENCES [Order]( oid ),
+    pid INT FOREIGN KEY (pid) REFERENCES [Product](id),
+	quantity INT,
+	price DECIMAL(12,0) NOT NULL
 );
+/*-----------------------------------------------------------------------------*/
 
 INSERT INTO Account ([user], pass, isSell,isAdmin)
 VALUES('mrA','1602',0,0),

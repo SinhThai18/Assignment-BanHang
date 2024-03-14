@@ -13,24 +13,25 @@
     </head>
     <body>
         <jsp:include page="Menu.jsp"></jsp:include>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="home">Home</a></li>
-                        </ol>
-                    </nav>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="home">Home</a></li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
+            <div class="container">
+                <div class="row">
                 <jsp:include page="Left.jsp"></jsp:include>
-                <div class="col-sm-9">
-                    <div id="content" class="row">
-                        <c:forEach items="${listP}" var="o">
-                            <div class="product col-12 col-md-6 col-lg-4">
+                    <div class="col-sm-9">
+                        <div id="content" class="row">
+                        <c:forEach items="${listP}" var="o" varStatus="loop">
+                            <c:set var="id" value="${o.id}"/>
+                            <div class="product col-12 col-md-4">
                                 <div class="card">
                                     <img class="card-img-top" src="${o.image}" alt="Card image cap" width="100%" height="auto">
                                     <div class="card-body">
@@ -40,16 +41,22 @@
                                             <div class="col">
                                                 <p class="btn btn-danger btn-block">${o.price} VND</p>
                                             </div>
-                                             <div class="col">
-                                                 <input class="btn btn-success btn-block" onclick="buy('id')" type="button" value="Add to cart"/>
-                                            </div>
-                                            <div>
-                                                Enter number to buy:<input type="number" name="num" value="1"/>
-                                            </div>
+                                            <form id="addToCartForm" action="buy" method="get" name="f">
+                                                <div class="col">
+                                                    <a href="buy?id=${o.id}&num=1" title="Add to Cart">Add to cart</a>
+                                                </div>
+                                                <div class="col">
+                                                    Enter number: <input type="number" name="num" value="1"/>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <%-- Đóng hàng nếu đã đến sản phẩm thứ 3 hoặc là sản phẩm cuối cùng --%>
+                            <c:if test="${loop.index % 3 == 2 || loop.last}">
+                            </div><div class="row">
+                            </c:if>
                         </c:forEach>
                     </div>
                 </div>
@@ -59,11 +66,10 @@
     </body>
 </html>
 <script type="text/javascript">
-     function buy(id){
-         var m = doucument.f.num.value;
-         document.f.action = "buy?id="+id+"num="+m;
-         document.f.submit();
-     }   
-    
+    function buy(id, index) {
+        var form = document.getElementsByName('f')[index];
+        var num = form.querySelector('[name="num"]').value;
+        form.action = "buy?id=" + id + "&num=" + num;
+        form.submit();
+    }
 </script>
-    

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,13 +30,41 @@ public class DeleteControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String pid = request.getParameter("pid");
-        Dao dao = new Dao();
-        dao.deleteProduct(pid);
-        response.sendRedirect("manager");
-    } 
+        
+        // Lấy productId từ request
+        String productId = request.getParameter("productId");
+        
+        // Xóa sản phẩm có productId khỏi cookie
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("cart")) {
+                    String[] products = cookie.getValue().split("/");
+                    StringBuilder updatedCookieValue = new StringBuilder();
+                    for (String product : products) {
+                        String[] parts = product.split(":");
+                        if (parts.length == 2 && !parts[0].equals(productId)) {
+                            updatedCookieValue.append(product).append("/");
+                        }
+                    }
+                    // Xóa ký tự '/' cuối cùng nếu có
+                    if (updatedCookieValue.length() > 0) {
+                        updatedCookieValue.deleteCharAt(updatedCookieValue.length() - 1);
+                    }
+                    // Cập nhật cookie
+                    cookie.setValue(updatedCookieValue.toString());
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+        
+        // Chuyển hướng đến servlet ShowServlet để cập nhật lại trang giỏ hàng
+        response.sendRedirect("show");
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
