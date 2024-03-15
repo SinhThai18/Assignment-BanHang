@@ -41,14 +41,17 @@
                                             <div class="col">
                                                 <p class="btn btn-danger btn-block">${o.price} VND</p>
                                             </div>
-                                            <form id="addToCartForm" action="buy" method="get" name="f">
+                                            <form id="addToCartForm${loop.index}" action="buy" method="get" name="f" onsubmit="updateNum(${loop.index})">
                                                 <div class="col">
-                                                    <a href="buy?id=${o.id}&num=1" title="Add to Cart">Add to cart</a>
+                                                    <input type="hidden" name="id" value="${o.id}">
+                                                    <input type="hidden" name="num" id="numField${loop.index}" value="1">
+                                                    <input type="submit" value="Add to cart">
                                                 </div>
                                                 <div class="col">
-                                                    Enter number: <input type="number" name="num" value="1"/>
+                                                    Enter number: <input type="number" name="userNum" id="userNumField${loop.index}" value="1">
                                                 </div>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -66,6 +69,16 @@
     </body>
 </html>
 <script type="text/javascript">
+    function updateNum(index) {
+        // Lấy giá trị số lượng mà người dùng nhập vào trường số lượng
+        var userNum = document.getElementById("userNumField" + index).value;
+
+        // Gán giá trị số lượng mà người dùng nhập vào trường ẩn
+        document.getElementById("numField" + index).value = userNum;
+
+        // Tiếp tục submit form
+        return true;
+    }
     function buy(id, index) {
         var form = document.getElementsByName('f')[index];
         var num = form.querySelector('[name="num"]').value;

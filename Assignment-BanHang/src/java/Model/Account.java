@@ -16,8 +16,27 @@ public class Account {
     private int isSell;
     private int isAdmin;
     private double amount;
+    private String phone;
 
     public Account() {
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Account(int id, String user, String pass, int isSell, int isAdmin, double amount, String phone) {
+        this.id = id;
+        this.user = user;
+        this.pass = pass;
+        this.isSell = isSell;
+        this.isAdmin = isAdmin;
+        this.amount = amount;
+        this.phone = phone;
     }
 
     public Account(int id, String user, String pass, int isSell, int isAdmin, double amount) {

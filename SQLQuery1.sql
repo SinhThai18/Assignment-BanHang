@@ -8,6 +8,8 @@ DROP TABLE Account
 SELECT*FROM Product
 SELECT*FROM Category
 SELECT*FROM Account
+SELECT*FROM [Order]
+SELECT*FROM [OrderLine]
 
 
 /*-----------------------------Account------------------------------------------------*/
@@ -45,6 +47,8 @@ CREATE TABLE Product (
     information NVARCHAR(MAX)
 );
 
+UPDATE Product
+SET quantity = 10;
 UPDATE Product
 SET name='ABA',
 image='AB',
@@ -89,6 +93,23 @@ VALUES('mrA','1602',0,0),
 ('mrB','1602',1 ,0 ),
 ('mrC','1602',0 ,1 ),
 ('mrD','1602',1 ,1 )
+ALTER TABLE Account
+ADD phone VARCHAR(20);
+UPDATE Account
+SET phone = '0123456789'
+WHERE [user] = 'mrA';
+
+UPDATE Account
+SET phone = '0987654321'
+WHERE [user] = 'mrB';
+
+UPDATE Account
+SET phone = '0345678901'
+WHERE [user] = 'mrC';
+
+UPDATE Account
+SET phone = '0909090909'
+WHERE [user] = 'mrD';
 
 INSERT INTO Account ([user], pass, isSell,isAdmin)
 VALUES('mre','1602',0,0)

@@ -71,14 +71,13 @@
                                 <h5 class="font-weight-bold">${totalPrice}</h5>
                             </li>
                         </ul>
-                        <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Mua hàng</a>
+                            <form action="muahang" method="post">
+                                <input type="submit" class="btn btn-dark rounded-pill py-2 btn-block" value="MUA">
+                            </form>
                     </div>
                 </div>
             </div>
             <div>
-                <form action="check out" method="post">
-                    <input type="submit" value="Check out" class="btn btn-primary">
-                </form>
             </div>
             <div>
                 <a href="home">Click to continue shopping</a>
