@@ -7,21 +7,11 @@
                 <h5>About</h5>
                 <hr class="bg-white mb-4 mt-0 d-inline-block mx-auto w-25">
                 <p class="mb-0">
-                    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+                    "Hello there! Are you in search of unique, stylish, and high-quality clothing from Vietnamese brands? Look no further than Áo Việt - your ultimate destination for those who cherish creativity and bold Vietnamese identity in fashion!
                 </p>
             </div>
 
             <%-- Information links --%>
-            <div class="col-md-4 col-lg-4 col-xl-4">
-                <h5>Informations</h5>
-                <hr class="bg-white mb-4 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <c:set var="informationLinks" value="${{'Link 1', 'Link 2', 'Link 3', 'Link 4'}}"/>
-                    <c:forEach items="${informationLinks}" var="link">
-                        <li><a href="" style="color: white;">${link}</a></li>
-                    </c:forEach>
-                </ul>
-            </div>
 
             <%-- Contact information --%>
             <div class="col-md-4 col-lg-4 col-xl-4">
@@ -29,9 +19,9 @@
                 <hr class="bg-white mb-4 mt-0 d-inline-block mx-auto w-25">
                 <ul class="list-unstyled">
                     <li><i class="fa fa-home mr-2"></i> My company</li>
-                    <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
-                    <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
-                    <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                    <li><i class="fa fa-envelope mr-2"></i> thaiminh@gmail.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> +0966059782</li>
+
                 </ul>
             </div>
         </div>
