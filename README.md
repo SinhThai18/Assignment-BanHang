@@ -1,0 +1,8 @@
+![Screenshot (2)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/057054f9-dc79-46b1-875f-5dbf411e94ca)
+![Screenshot (3)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/c7cb0cb0-5603-4fff-95e5-3d899fc6cb74)
+![Screenshot (4)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/f4334254-34d3-4793-a3a5-74a4ef47f989)
+![Screenshot (5)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/25ea9c2f-c936-434c-b8cf-a96656d15d93)
+![Screenshot (6)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/81511b0e-a7a5-450b-b4d6-8ebdec585414)
+![Screenshot (7)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/6be1275e-581a-4bf1-b201-e399e2c3d552)
+![Screenshot (8)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/23ddac03-b509-42fc-a253-fcac811e80e4)
+![Screenshot (9)](https://github.com/SinhThai18/Assignment-BanHang/assets/156230586/8a506584-69a9-42ea-9cc2-ba26d1b256e0)
